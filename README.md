@@ -1,1 +1,6 @@
-koa-generator
+# koa-generator
+
+```
+npm install
+ npm start
+```

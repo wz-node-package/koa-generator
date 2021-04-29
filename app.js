@@ -4,9 +4,7 @@ var app = require('koa')()
   , views = require('koa-views')
   , onerror = require('koa-onerror');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-
+var routers = require('./routes/index')
 // error handler
 onerror(app);
 
@@ -29,8 +27,11 @@ app.use(function *(next){
 app.use(require('koa-static')(__dirname + '/public'));
 
 // routes definition
-app.use(index.routes(), index.allowedMethods());
-app.use(users.routes(), users.allowedMethods());
+routers.forEach(route=>{
+  app.use(route.routes(),route.allowedMethods())
+})
+// app.use(index.routes(), index.allowedMethods());
+// app.use(users.routes(), users.allowedMethods());
 
 // error-handling
 app.on('error', (err, ctx) => {
